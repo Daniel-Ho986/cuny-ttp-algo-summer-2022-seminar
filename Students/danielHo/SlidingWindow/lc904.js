@@ -8,6 +8,45 @@
 
 function fruits_into_baskets(fruits) {
   // TODO: Write code here
+    let startPoint = 0;
+    let endPoint = 0;
+    let fruitBucket = new Map();
+    let currentCount = 0;
+    let maxCount = 0;
+
+    while (startPoint < fruits.length && endPoint < fruits.length) {
+        const fruit = fruits[endPoint];
+        // Increment the value of the fruit if it is in the basket
+        if (fruitBucket.has(fruit)) {
+            fruitBucket.set(fruit, fruitBucket.get(fruit) + 1);
+            endPoint++;
+            currentCount++;
+        // Add the new distinct fruit to the new basket
+        } else if (fruitBucket.size < 2) {
+            fruitBucket.set(fruit, 1);
+            endPoint++;
+            currentCount++;
+        // Move the sliding window 
+        } else {
+            const fruitToBeRemoved = fruits[startPoint];
+            const count = fruitBucket.get(fruitToBeRemoved);
+
+            // remove the fruit
+            if (count === 1) {
+                fruitBucket.delete(fruitToBeRemoved);
+
+            // decrement the value of the fruit
+            } else {
+                fruitBucket.set(fruitToBeRemoved, count - 1);
+            }
+            currentCount--;
+            startPoint++;
+        }
+
+        maxCount = Math.max(currentCount, maxCount);
+    }
+
+    return maxCount;
 }
 
 console.log(
