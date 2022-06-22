@@ -6,23 +6,19 @@ function smallest_subarray_with_given_sum(s, arr) {
   // TODO: Write code here
 
 
-  let startWindow  = 0;
-  let windowSum = 0;
+  let start  = 0;
+  let sum = 0;
   let minLength = Infinity;
 
 
-  for( let endWindow = 0; endWindow < arr.length; endWindow++)
-  {
+  for(let i = 0; i < arr.length; i++) {
+    sum += arr[i];
 
-    windowSum += arr[endWindow];
-
-     while(windowSum >= s)
-     {
-      minLength = Math.min(minLength, endWindow - startWindow + 1)
-      windowSum -= arr[startWindow]
-      startWindow++;
-
-     }
+    while(sum >= s) {
+      minLength = Math.min(minLength, i - start + 1)
+      sum -= arr[start]
+      start++;
+    }
   }
 
   return minLength;
