@@ -6,37 +6,59 @@
 
 function longest_substring_with_k_distinct(str, k) {
   // TODO: Write code here
-  if (k == 0) return 0
-
-  // start and end pointers
-  let start = 0;
-  let end = 0;
-
-  // Storing the characters
-  let dict = {}
-
-  let maxLength = 0;
-
-  while (end < str.length) {
-    if (dict.hasOwnProperty(str[end])) dict[str[end]]++;
-    else dict[str[end]] = 1;
-    console.log()
-
-    while (Object.keys(dict) > k) {
-      dict[str[start]]--;
-
-      if (dict[str[start]] == 0) {
-        delete dict[str[start]]
-      }
-      start++;
+  var [r,l,ans,counter] = [0,0,0,0];
+  var hash = {};
+  while (r < str.length) {
+    var rChar = str[r];
+    if (!hash[rChar ]) {
+      hash[rChar] = 1;
+      counter++;
+    } else {
+      hash[rChar]++;
     }
-
-    maxLength = Math.max(maxLength, end - start + 1)
-    end++;
+​
+    while (counter === k+1) {
+      var lChar = str[l];
+      hash[lChar]--;
+      if (hash[lChar] === 0) counter--;
+      l++;
+    }
+​
+    ans = Math.max(ans, r-l+1);
+    r++;
   }
-  
-  return maxLength;
+​
+  return ans;
 }
+
+/* Python Solution */
+// from collections import defaultdict
+// class Solution:
+//     def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
+//         '''
+//         data structure: dictionary to store the frequency count of characters in s
+// ​
+//         i = 0 => left pointer
+//         j => right pointer (to be incremented in the for loop)
+        
+//         res = res vs (right pointer - left pointer + 1)
+        
+//         if (len(d) > k):
+//             decrement the counter value of left pointer by 1
+//             if it reaches zero, then we delete it from the dictionary
+//             so that we are not counting extra characters.
+//         '''
+//         d = defaultdict(int)
+//         i, res = 0, 0
+//         for j in range(len(s)):
+//             d[s[j]] += 1
+//             if len(d) > k:
+//                 d[s[i]] -= 1
+//                 if d[s[i]] == 0:
+//                     del d[s[i]]
+//                 i += 1 # bump up the left pointer
+//             res = max(res, j - i + 1)
+//         return res
 
 console.log(
   `Length of the longest substring: ${longest_substring_with_k_distinct(
