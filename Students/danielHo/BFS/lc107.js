@@ -17,7 +17,7 @@ const traverse = function(root) {
   const result = [];
   const queue = [root];
 
-  if (!root) return []; // left node 
+  if (!root) return []; // leaf node 
 
   while (queue.length > 0) { // enter while loop if it is not empty tree
     let queueLen = queue.length;

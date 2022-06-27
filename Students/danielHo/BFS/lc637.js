@@ -12,8 +12,31 @@ class TreeNode {
 };
 
 const find_level_averages = function(root) {
-  result = [];
   // TODO: Write your code here
+  const result = [];
+  const queue = [root];
+
+  if (!root) return [];
+
+  while (queue.length > 0) {
+    let length = queue.length;
+    let temp = 0;
+
+    for (let i = 0; i < length; i++) {
+      const node = queue.shift();
+      temp += node.value;
+
+      if (node.left !== null) {
+        queue.push(node.left);
+      }
+
+      if (node.right !== null) {
+        queue.push(node.right);
+      }
+    }
+
+    result.push((temp / length));
+  }
   return result;
 };
 
