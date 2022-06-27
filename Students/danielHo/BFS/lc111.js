@@ -14,7 +14,32 @@ class TreeNode {
 
 const find_minimum_depth = function(root) {
   // TODO: Write your code here
-  return -1;
+  if (!root) return 0; // no root return zero
+
+  let min = Infinity;
+  let level = 1;
+  const queue = [root];
+
+  while (queue.length) {
+    const length = queue.length;
+
+    for (let i = 0; i < length; i++) {
+      const node = queue.shift();
+
+      // when node is a leaf node, compare the current level with min
+      if (!node.left && !node.right) {
+        min = Math.min(min, level)
+      }
+
+      if (node.left) queue.push(node.left);
+
+      if (node.right) queue.push(node.right);
+    }
+
+    level++;
+  }
+
+  return min;
 };
 
 
