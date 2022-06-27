@@ -12,9 +12,35 @@ class TreeNode {
 };
 
 const traverse = function(root) {
-  result = [];
+  
   // TODO: Write your code here
-  return result;
+  const result = [];
+  const queue = [root];
+
+  if (!root) return []; // left node 
+
+  while (queue.length > 0) { // enter while loop if it is not empty tree
+    let queueLen = queue.length;
+    let temp = []; // stores node on the level temporarily
+
+    for (let i = 0; i < queueLen; i++) {
+      const node = queue.shift();
+      temp.push(node.value);
+
+      if (node.left !== null) {
+        queue.push(node.left);
+      }
+
+      if (node.right !== null) {
+        queue.push(node.right);
+      }
+    }
+
+    result.push(temp); // push nodes on level before moving on to the next level
+    temp = [];
+  }
+
+  return result.reverse();
 }
 
 var root = new TreeNode(12)
