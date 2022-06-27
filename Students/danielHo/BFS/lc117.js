@@ -35,6 +35,26 @@ class TreeNode {
 
 const connect_level_order_siblings = function(root) {
   // TODO: Write your code here
+  if (!root) return root;
+
+  const queue = [root];
+
+  while (queue.length) {
+    let length = queue.length;
+    let pre = null;
+
+    for (let i = 0; i < length; i++) {
+      let node = queue.shift();
+
+      node.next = pre;
+
+      if (node.right != null) queue.push(node.right)
+      if (node.left != null) queue.push(node.left)
+
+      pre = node;
+    }
+  }
+  return root;
 };
 
 
