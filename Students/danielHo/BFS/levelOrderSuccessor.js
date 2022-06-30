@@ -33,7 +33,30 @@ class TreeNode {
 
 const find_successor = function(root, key) {
   // TODO: Write your code here
-  return null;
+  const output = [];
+  const queue = [root];
+
+  if (!root) return root;
+
+  while (queue.length > 0) { // enter while loop if it is not empty tree
+    let queueLen = queue.length;
+
+    for (let i = 0; i < queueLen; i++) {
+      const node = queue.shift();
+      output.push(node.value);
+
+      if (node.left !== null) {
+        queue.push(node.left);
+      }
+
+      if (node.right !== null) {
+        queue.push(node.right);
+      }
+    }
+
+  }
+
+  return output;
 };
 
 
